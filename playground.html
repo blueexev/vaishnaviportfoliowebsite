@@ -1,404 +1,1492 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Playground — Vaishnavi Venkatesh</title>
-<meta name="description" content="Visual experiments, XR studies and small interactions by Vaishnavi Venkatesh.">
+
+<meta
+    name="description"
+    content="Visual experiments, XR studies and small interactions by Vaishnavi Venkatesh."
+>
+
+<!-- ============================================================
+     GOOGLE FONT
+============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    rel="stylesheet"
+>
+
 
 <style>
+
 /* ============================================================
-   COLOURS — keep identical to index.html
-   ============================================================ */
+   COLOURS
+============================================================ */
+
 :root {
-  --night:     #05233C;
-  --deep:      #0A3157;
-  --cream:     #F5F5DC;
-  --muted:     #9DB2C4;
-  --turquoise: #28B6AC;
-  --saffron:   #D0674E;
 
-  --line: rgba(245, 245, 220, .16);
+    --night: #05233C;
+    --deep: #0A3157;
+    --cream: #F5F5DC;
+    --muted: #9DB2C4;
+    --turquoise: #28B6AC;
+    --saffron: #D0674E;
 
-  --wrap: min(960px, calc(100% - 64px));
+    --line: rgba(245, 245, 220, .16);
+
+    --wrap: min(960px, calc(100% - 64px));
+
 }
 
-/* ============================================================
-   BASE
-   ============================================================ */
-* { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* ============================================================
+   RESET
+============================================================ */
+
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
 
 body {
-  background: var(--night);
-  color: var(--cream);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  overflow-x: hidden;
+
+    background: var(--night);
+
+    color: var(--cream);
+
+    font-family:
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    overflow-x: hidden;
+
 }
 
-a { color: inherit; text-decoration: none; }
-::selection { background: var(--turquoise); color: var(--night); }
 
-h1 { font-family: "Montserrat", sans-serif; font-weight: 400; }
+a {
 
-.page-width { width: var(--wrap); margin: auto; }
+    color: inherit;
 
-.rule { width: 100%; height: 1px; background: var(--line); }
+    text-decoration: none;
+
+}
+
+
+button {
+
+    font-family: inherit;
+
+}
+
+
+::selection {
+
+    background: var(--turquoise);
+
+    color: var(--night);
+
+}
+
+
+/* ============================================================
+   GENERAL
+============================================================ */
+
+h1 {
+
+    font-family: "Montserrat", sans-serif;
+
+    font-weight: 400;
+
+}
+
+
+.page-width {
+
+    width: var(--wrap);
+
+    margin: 0 auto;
+
+}
+
+
+.rule {
+
+    width: 100%;
+
+    height: 1px;
+
+    background: var(--line);
+
+}
+
+
+/* ============================================================
+   SMALL LINK
+============================================================ */
 
 .link {
-  display: inline-block;
-  margin-top: 18px;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  color: var(--saffron);
-  border-bottom: 1px solid var(--saffron);
-  padding-bottom: 4px;
-  transition: color .25s ease, border-color .25s ease;
+
+    display: inline-block;
+
+    margin-top: 18px;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .12em;
+
+    color: var(--saffron);
+
+    border-bottom:
+        1px solid var(--saffron);
+
+    padding-bottom: 4px;
+
+    transition:
+        color .25s ease,
+        border-color .25s ease;
+
 }
+
+
 .link:hover,
-.link:focus-visible { color: var(--turquoise); border-color: var(--turquoise); }
+.link:focus-visible {
+
+    color: var(--turquoise);
+
+    border-color: var(--turquoise);
+
+}
+
 
 /* ============================================================
-   NAV — same as index.html
-   ============================================================ */
+   NAVIGATION
+============================================================ */
+
 .site-nav {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 16px 0;
-  pointer-events: none;
-  background: linear-gradient(var(--night) 60%, transparent);
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 1000;
+
+    padding: 16px 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            var(--night) 60%,
+            transparent
+        );
+
 }
+
 
 .nav-inner {
-  width: var(--wrap);
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  pointer-events: auto;
+
+    width: var(--wrap);
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    pointer-events: auto;
+
 }
+
 
 .artist-name {
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  color: var(--cream);
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    letter-spacing: .2em;
+
+    color: var(--cream);
+
+    white-space: nowrap;
+
 }
 
-.nav-links { display: flex; gap: 24px; list-style: none; }
+
+.nav-links {
+
+    display: flex;
+
+    gap: 24px;
+
+    list-style: none;
+
+}
+
 
 .nav-links a {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .15em;
-  color: var(--muted);
-  transition: color .2s ease;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .15em;
+
+    color: var(--muted);
+
+    transition: color .2s ease;
+
 }
+
+
 .nav-links a:hover,
 .nav-links a:focus-visible,
-.nav-links a.current { color: var(--turquoise); }
+.nav-links a.current {
+
+    color: var(--turquoise);
+
+}
+
 
 /* ============================================================
-   PAGE HEAD
-   ============================================================ */
-.play-head { padding: 110px 0 28px; }
+   PAGE HEADER
+============================================================ */
+
+.play-head {
+
+    padding: 110px 0 28px;
+
+}
+
 
 .play-title {
-  font-size: clamp(36px, 5.5vw, 58px);
-  line-height: .98;
-  letter-spacing: -.055em;
+
+    font-size:
+        clamp(36px, 5.5vw, 58px);
+
+    line-height: .98;
+
+    letter-spacing: -.055em;
+
 }
 
+
 .play-intro {
-  max-width: 420px;
-  margin-top: 16px;
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--muted);
+
+    max-width: 420px;
+
+    margin-top: 16px;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    color: var(--muted);
+
 }
+
 
 /* ============================================================
    GALLERY
-   ============================================================ */
-.gallery-section { padding: 36px 0 60px; }
+============================================================ */
+
+.gallery-section {
+
+    padding: 36px 0 60px;
+
+}
+
 
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
 }
+
 
 .shot {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background: var(--deep);
-  border: 0;
-  overflow: hidden;
-  cursor: zoom-in;
+
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    background: var(--deep);
+
+    border: 0;
+
+    overflow: hidden;
+
+    cursor: zoom-in;
+
+    padding: 0;
+
 }
 
-/* a few tiles break the grid */
-.shot.wide { grid-column: span 2; aspect-ratio: 2 / 1; }
-.shot.tall { grid-row: span 2; aspect-ratio: 1 / 2; }
+
+.shot.wide {
+
+    grid-column: span 2;
+
+    aspect-ratio: 2 / 1;
+
+}
+
+
+.shot.tall {
+
+    grid-row: span 2;
+
+    aspect-ratio: 1 / 2;
+
+}
+
 
 .shot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .7s cubic-bezier(.2,.7,.2,1);
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform .7s cubic-bezier(.2,.7,.2,1);
+
 }
+
+
 .shot:hover img,
-.shot:focus-visible img { transform: scale(1.04); }
+.shot:focus-visible img {
+
+    transform: scale(1.04);
+
+}
+
+
+/* ============================================================
+   GALLERY CAPTION
+============================================================ */
 
 .shot-caption {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 10px 12px;
-  text-align: left;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  color: var(--cream);
-  background: linear-gradient(transparent, rgba(5, 35, 60, .88));
-  opacity: 0;
-  transition: opacity .3s ease;
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 10px 12px;
+
+    text-align: left;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .12em;
+
+    color: var(--cream);
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(5, 35, 60, .88)
+        );
+
+    opacity: 0;
+
+    transition: opacity .3s ease;
+
 }
+
+
 .shot:hover .shot-caption,
-.shot:focus-visible .shot-caption { opacity: 1; }
+.shot:focus-visible .shot-caption {
+
+    opacity: 1;
+
+}
+
 
 /* ============================================================
    LIGHTBOX
-   ============================================================ */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background: rgba(3, 20, 34, .96);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-}
-.lightbox.open { display: flex; }
+============================================================ */
 
-.lightbox img { max-width: 92vw; max-height: 82vh; object-fit: contain; }
+.lightbox {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    background:
+        rgba(3, 20, 34, .96);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 40px;
+
+}
+
+
+.lightbox.open {
+
+    display: flex;
+
+}
+
+
+.lightbox img {
+
+    max-width: 92vw;
+
+    max-height: 82vh;
+
+    object-fit: contain;
+
+}
+
 
 .lightbox-caption {
-  position: absolute;
-  bottom: 24px;
-  left: 0; right: 0;
-  text-align: center;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .14em;
-  color: var(--turquoise);
+
+    position: absolute;
+
+    bottom: 24px;
+
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .14em;
+
+    color: var(--turquoise);
+
 }
+
 
 .lightbox-close {
-  position: absolute;
-  top: 18px; right: 22px;
-  background: none;
-  border: 0;
-  font-size: 22px;
-  line-height: 1;
-  color: var(--cream);
-  cursor: pointer;
+
+    position: absolute;
+
+    top: 18px;
+    right: 22px;
+
+    background: none;
+
+    border: 0;
+
+    font-size: 22px;
+
+    line-height: 1;
+
+    color: var(--cream);
+
+    cursor: pointer;
+
 }
 
+
 /* ============================================================
-   FOOTER — same as index.html
-   ============================================================ */
+   FOOTER
+============================================================ */
+
 footer {
-  width: var(--wrap);
-  margin: auto;
-  padding: 18px 0 26px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
+
+    width: var(--wrap);
+
+    margin: auto;
+
+    padding: 18px 0 26px;
+
+    border-top:
+        1px solid var(--line);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
 }
+
 
 .footer-text,
 .footer-links a {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: var(--muted);
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .1em;
+
+    color: var(--muted);
+
 }
 
-.footer-links { display: flex; gap: 18px; }
-.footer-links a:hover { color: var(--turquoise); }
 
-#bg-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-#bg-canvas canvas { display: block; }
+.footer-links {
+
+    display: flex;
+
+    gap: 18px;
+
+}
+
+
+.footer-links a:hover {
+
+    color: var(--turquoise);
+
+}
+
+
+/* ============================================================
+   P5 BACKGROUND
+============================================================ */
+
+#bg-canvas {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -1;
+
+    pointer-events: none;
+
+}
+
+
+#bg-canvas canvas {
+
+    display: block;
+
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .shot img { transition: none; }
+
+    html {
+
+        scroll-behavior: auto;
+
+    }
+
+    .shot img {
+
+        transition: none;
+
+    }
+
 }
+
+
+/* ============================================================
+   TABLET
+============================================================ */
+
+@media (max-width: 900px) {
+
+    :root {
+
+        --wrap:
+            calc(100% - 48px);
+
+    }
+
+    .nav-links {
+
+        gap: 18px;
+
+    }
+
+}
+
 
 /* ============================================================
    MOBILE
-   ============================================================ */
+============================================================ */
+
 @media (max-width: 760px) {
-  :root { --wrap: calc(100% - 32px); }
-  .site-nav { padding: 14px 0; }
-  .nav-links { gap: 16px; }
-  .play-head { padding: 92px 0 22px; }
-  .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .shot.tall { grid-row: span 1; aspect-ratio: 1 / 1; }
-  .shot-caption { opacity: 1; }
-  footer { display: block; }
-  .footer-links { margin-top: 12px; }
+
+    :root {
+
+        --wrap:
+            calc(100% - 32px);
+
+    }
+
+
+    /* -------------------------
+       NAV
+    ------------------------- */
+
+    .site-nav {
+
+        padding: 14px 0;
+
+        background:
+            linear-gradient(
+                var(--night) 75%,
+                transparent
+            );
+
+    }
+
+
+    .nav-inner {
+
+        align-items: flex-start;
+
+    }
+
+
+    .artist-name {
+
+        font-size: 9px;
+
+        letter-spacing: .16em;
+
+        padding-top: 2px;
+
+    }
+
+
+    .nav-links {
+
+        gap: 11px;
+
+        align-items: center;
+
+    }
+
+
+    .nav-links a {
+
+        font-size: 8px;
+
+        letter-spacing: .08em;
+
+    }
+
+
+    /* -------------------------
+       HEADER
+    ------------------------- */
+
+    .play-head {
+
+        padding:
+            100px 0 26px;
+
+    }
+
+
+    .play-title {
+
+        font-size:
+            clamp(38px, 13vw, 54px);
+
+    }
+
+
+    .play-intro {
+
+        max-width: 100%;
+
+        margin-top: 18px;
+
+        font-size: 12px;
+
+        line-height: 1.7;
+
+    }
+
+
+    .link {
+
+        margin-top: 20px;
+
+    }
+
+
+    /* -------------------------
+       GALLERY
+    ------------------------- */
+
+    .gallery-section {
+
+        padding:
+            28px 0 44px;
+
+    }
+
+
+    .gallery {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 9px;
+
+    }
+
+
+    .shot {
+
+        aspect-ratio: 1 / 1;
+
+    }
+
+
+    .shot.wide {
+
+        grid-column: span 2;
+
+        aspect-ratio: 2 / 1;
+
+    }
+
+
+    .shot.tall {
+
+        grid-row: span 1;
+
+        aspect-ratio: 1 / 1;
+
+    }
+
+
+    /* -------------------------
+       MOBILE CAPTIONS
+    ------------------------- */
+
+    .shot-caption {
+
+        opacity: 1;
+
+        padding:
+            22px 8px 8px;
+
+        font-size: 7px;
+
+        letter-spacing: .09em;
+
+    }
+
+
+    /* -------------------------
+       FOOTER
+    ------------------------- */
+
+    footer {
+
+        display: block;
+
+        padding:
+            18px 0 24px;
+
+    }
+
+
+    .footer-text {
+
+        display: block;
+
+        font-size: 8px;
+
+    }
+
+
+    .footer-links {
+
+        margin-top: 12px;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+    }
+
+
+    .footer-links a {
+
+        font-size: 8px;
+
+    }
+
+
+    /* -------------------------
+       LIGHTBOX
+    ------------------------- */
+
+    .lightbox {
+
+        padding: 20px;
+
+    }
+
+
+    .lightbox img {
+
+        max-width: 94vw;
+
+        max-height: 76vh;
+
+    }
+
+
+    .lightbox-close {
+
+        top: 14px;
+
+        right: 16px;
+
+    }
+
+
+    .lightbox-caption {
+
+        bottom: 18px;
+
+        font-size: 8px;
+
+    }
+
 }
+
+
+/* ============================================================
+   VERY SMALL PHONES
+============================================================ */
+
+@media (max-width: 420px) {
+
+    .nav-inner {
+
+        align-items: center;
+
+    }
+
+
+    .artist-name {
+
+        font-size: 8px;
+
+        letter-spacing: .12em;
+
+    }
+
+
+    .nav-links {
+
+        gap: 8px;
+
+    }
+
+
+    .nav-links a {
+
+        font-size: 7px;
+
+        letter-spacing: .06em;
+
+    }
+
+
+    .play-head {
+
+        padding-top: 92px;
+
+    }
+
+
+    .gallery {
+
+        gap: 7px;
+
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- ============================================================
+     P5 BACKGROUND
+============================================================ -->
+
 <div id="bg-canvas"></div>
 
-<!-- ============ NAV ============ -->
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+
 <nav class="site-nav">
-  <div class="nav-inner">
-    <a href="index.html#top" class="artist-name">Vaishnavi Venkatesh</a>
-    <ul class="nav-links">
-      <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="playground.html" class="current">Playground</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-  </div>
+
+    <div class="nav-inner">
+
+        <a
+            href="index.html"
+            class="artist-name"
+        >
+            Vaishnavi Venkatesh
+        </a>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html#work">
+                    Work
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html#about">
+                    About
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="playground.html"
+                    class="current"
+                >
+                    Playground
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html#contact">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
 </nav>
 
-<!-- ============ HEAD ============ -->
+
+<!-- ============================================================
+     PAGE HEADER
+============================================================ -->
+
 <header class="play-head">
-  <div class="page-width">
-    <h1 class="play-title">Playground</h1>
-    <p class="play-intro">
-      Experiments, studies and half-finished things — shaders, type tests, XR
-      captures, posters and small interactions made outside of any brief.
-    </p>
-    <a href="index.html" class="link">Back to work</a>
-  </div>
+
+    <div class="page-width">
+
+        <h1 class="play-title">
+            Playground
+        </h1>
+
+
+        <p class="play-intro">
+
+            Experiments, studies and half-finished things —
+            shaders, type tests, XR captures, posters and
+            small interactions made outside of any brief.
+
+        </p>
+
+
+        <a
+            href="index.html"
+            class="link"
+        >
+            Back to work
+        </a>
+
+    </div>
+
 </header>
+
 
 <div class="rule"></div>
 
-<!-- ============ GALLERY ============ -->
+
+<!-- ============================================================
+     GALLERY
+============================================================ -->
+
 <section class="gallery-section">
-  <div class="page-width">
-    <div class="gallery">
 
-      <button class="shot wide" type="button">
-        <img src="imagezz/play-01.png" alt="Experiment 01">
-        <span class="shot-caption">Type study</span>
-      </button>
+    <div class="page-width">
 
-      <button class="shot" type="button">
-        <img src="imagezz/play-02.png" alt="Experiment 02">
-        <span class="shot-caption">Shader test</span>
-      </button>
+        <div class="gallery">
 
-      <button class="shot tall" type="button">
-        <img src="imagezz/play-03.png" alt="Experiment 03">
-        <span class="shot-caption">Poster</span>
-      </button>
 
-      <button class="shot" type="button">
-        <img src="imagezz/play-04.png" alt="Experiment 04">
-        <span class="shot-caption">XR capture</span>
-      </button>
+            <!-- IMAGE 01 -->
 
-      <button class="shot" type="button">
-        <img src="imagezz/play-05.png" alt="Experiment 05">
-        <span class="shot-caption">Sketch</span>
-      </button>
+            <button
+                class="shot wide"
+                type="button"
+            >
 
-      <button class="shot" type="button">
-        <img src="imagezz/play-06.png" alt="Experiment 06">
-        <span class="shot-caption">Colour study</span>
-      </button>
+                <img
+                    src="imagezz/play-01.png"
+                    alt="Experiment 01"
+                    loading="eager"
+                >
 
-      <button class="shot wide" type="button">
-        <img src="imagezz/play-07.png" alt="Experiment 07">
-        <span class="shot-caption">Blender render</span>
-      </button>
+                <span class="shot-caption">
+                    Type study
+                </span>
 
-      <button class="shot" type="button">
-        <img src="imagezz/play-08.png" alt="Experiment 08">
-        <span class="shot-caption">p5 sketch</span>
-      </button>
+            </button>
 
-      <button class="shot" type="button">
-        <img src="imagezz/play-09.png" alt="Experiment 09">
-        <span class="shot-caption">Photograph</span>
-      </button>
+
+            <!-- IMAGE 02 -->
+
+            <button
+                class="shot"
+                type="button"
+            >
+
+                <img
+                    src="imagezz/play-02.png"
+                    alt="Experiment 02"
+                    loading="lazy"
+                >
+
+                <span class="shot-caption">
+                    Shader test
+                </span>
+
+            </button>
+
+
+            <!-- IMAGE 03 -->
+
+            <button
+                class="shot tall"
+                type="button"
+            >
+
+                <img
+                    src="imagezz/play-03.png"
+                    alt="Experiment 03"
+                    loading="lazy"
+                >
+
+                <span class="shot-caption">
+                    Poster
+                </span>
+
+            </button>
+
+
+            <!-- IMAGE 04 -->
+
+            <button
+                class="shot"
+                type="button"
+            >
+
+                <img
+                    src="imagezz/play-04.png"
+                    alt="Experiment 04"
+                    loading="lazy"
+                >
+
+                <span class="shot-caption">
+                    XR capture
+                </span>
+
+            </button>
+
+
+            <!-- IMAGE 05 -->
+
+            <button
+                class="shot"
+                type="button"
+            >
+
+                <img
+                    src="imagezz/play-05.png"
+                    alt="Experiment 05"
+                    loading="lazy"
+                >
+
+                <span class="shot-caption">
+                    Sketch
+                </span>
+
+            </button>
+
+
+            <!-- IMAGE 06 -->
+
+            <button
+                class="shot"
+                type="button"
+            >
+
+                <img
+                    src="imagezz/play-06.png"
+                    alt="Experiment 06"
+                    loading="lazy"
+                >
+
+                <span class="shot-caption">
+                    Colour study
+                </span>
+
+            </button>
+
+
+            <!-- IMAGE 07 -->
+
+            <button
+                class="shot wide"
+                type="button"
+            >
+
+                <img
+                    src="imagezz/play-07.png"
+                    alt="Experiment 07"
+                    loading="lazy"
+                >
+
+                <span class="shot-caption">
+                    Blender render
+                </span>
+
+            </button>
+
+
+            <!-- IMAGE 08 -->
+
+            <button
+                class="shot"
+                type="button"
+            >
+
+                <img
+                    src="imagezz/play-08.png"
+                    alt="Experiment 08"
+                    loading="lazy"
+                >
+
+                <span class="shot-caption">
+                    p5 sketch
+                </span>
+
+            </button>
+
+
+            <!-- IMAGE 09 -->
+
+            <button
+                class="shot"
+                type="button"
+            >
+
+                <img
+                    src="imagezz/play-09.png"
+                    alt="Experiment 09"
+                    loading="lazy"
+                >
+
+                <span class="shot-caption">
+                    Photograph
+                </span>
+
+            </button>
+
+
+        </div>
 
     </div>
-  </div>
+
 </section>
 
-<!-- ============ FOOTER ============ -->
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+
 <footer>
-  <span class="footer-text">Vaishnavi Venkatesh · 2026</span>
-  <div class="footer-links">
-    <a href="https://github.com/blueexev" target="_blank" rel="noopener noreferrer">GitHub</a>
-    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    <a href="index.html">Work</a>
-  </div>
+
+    <span class="footer-text">
+        Vaishnavi Venkatesh · 2026
+    </span>
+
+
+    <div class="footer-links">
+
+        <a
+            href="https://github.com/blueexev"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            GitHub
+        </a>
+
+
+        <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            LinkedIn
+        </a>
+
+
+        <a href="index.html">
+            Work
+        </a>
+
+    </div>
+
 </footer>
 
-<!-- ============ LIGHTBOX ============ -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
-  <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
-  <img id="lightbox-img" src="" alt="">
-  <span class="lightbox-caption" id="lightbox-caption"></span>
+
+<!-- ============================================================
+     LIGHTBOX
+============================================================ -->
+
+<div
+    class="lightbox"
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Enlarged image"
+>
+
+    <button
+        class="lightbox-close"
+        id="lightbox-close"
+        aria-label="Close"
+    >
+        ×
+    </button>
+
+
+    <img
+        id="lightbox-img"
+        src=""
+        alt=""
+    >
+
+
+    <span
+        class="lightbox-caption"
+        id="lightbox-caption"
+    ></span>
+
 </div>
 
-<!-- ============ P5 BACKGROUND ============ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+<!-- ============================================================
+     P5.JS
+============================================================ -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"
+></script>
+
+
 <script src="sketch.js"></script>
 
-<!-- ============ SCRIPTS ============ -->
-<script>
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const lightboxCaption = document.getElementById("lightbox-caption");
-const closeBtn = document.getElementById("lightbox-close");
 
-document.querySelectorAll(".shot").forEach(shot => {
-  shot.addEventListener("click", () => {
-    const img = shot.querySelector("img");
-    const caption = shot.querySelector(".shot-caption");
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt;
-    lightboxCaption.textContent = caption ? caption.textContent.trim() : "";
-    lightbox.classList.add("open");
-    closeBtn.focus();
-  });
-});
+<!-- ============================================================
+     LIGHTBOX SCRIPT
+============================================================ -->
+
+<script>
+
+const lightbox =
+    document.getElementById("lightbox");
+
+const lightboxImg =
+    document.getElementById("lightbox-img");
+
+const lightboxCaption =
+    document.getElementById("lightbox-caption");
+
+const closeBtn =
+    document.getElementById("lightbox-close");
+
+
+/* ------------------------------------------------------------
+   OPEN LIGHTBOX
+------------------------------------------------------------ */
+
+document
+    .querySelectorAll(".shot")
+    .forEach(shot => {
+
+        shot.addEventListener(
+            "click",
+            () => {
+
+                const img =
+                    shot.querySelector("img");
+
+                const caption =
+                    shot.querySelector(
+                        ".shot-caption"
+                    );
+
+
+                lightboxImg.src =
+                    img.src;
+
+                lightboxImg.alt =
+                    img.alt;
+
+
+                lightboxCaption.textContent =
+                    caption
+                        ? caption.textContent.trim()
+                        : "";
+
+
+                lightbox.classList.add("open");
+
+
+                closeBtn.focus();
+
+            }
+        );
+
+    });
+
+
+/* ------------------------------------------------------------
+   CLOSE LIGHTBOX
+------------------------------------------------------------ */
 
 function closeLightbox() {
-  lightbox.classList.remove("open");
-  lightboxImg.src = "";
+
+    lightbox.classList.remove("open");
+
+    lightboxImg.src = "";
+
 }
 
-closeBtn.addEventListener("click", closeLightbox);
-lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+
+/* CLOSE BUTTON */
+
+closeBtn.addEventListener(
+    "click",
+    closeLightbox
+);
+
+
+/* CLICK OUTSIDE IMAGE */
+
+lightbox.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === lightbox
+        ) {
+
+            closeLightbox();
+
+        }
+
+    }
+);
+
+
+/* ESCAPE KEY */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeLightbox();
+
+        }
+
+    }
+);
+
 </script>
 
+
 </body>
+
 </html>
