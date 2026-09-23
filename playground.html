@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playground — Vaishnavi Venkatesh</title>
+<meta name="description" content="Visual experiments, XR studies and small interactions by Vaishnavi Venkatesh.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   COLOURS — keep identical to index.html
+   ============================================================ */
+:root {
+  --night:     #05233C;
+  --deep:      #0A3157;
+  --cream:     #F5F5DC;
+  --muted:     #9DB2C4;
+  --turquoise: #28B6AC;
+  --saffron:   #D0674E;
+
+  --line: rgba(245, 245, 220, .16);
+
+  --wrap: min(960px, calc(100% - 64px));
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--night);
+  color: var(--cream);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--turquoise); color: var(--night); }
+
+h1 { font-family: "Montserrat", sans-serif; font-weight: 400; }
+
+.page-width { width: var(--wrap); margin: auto; }
+
+.rule { width: 100%; height: 1px; background: var(--line); }
+
+.link {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--saffron);
+  border-bottom: 1px solid var(--saffron);
+  padding-bottom: 4px;
+  transition: color .25s ease, border-color .25s ease;
+}
+.link:hover,
+.link:focus-visible { color: var(--turquoise); border-color: var(--turquoise); }
+
+/* ============================================================
+   NAV — same as index.html
+   ============================================================ */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 16px 0;
+  pointer-events: none;
+  background: linear-gradient(var(--night) 60%, transparent);
+}
+
+.nav-inner {
+  width: var(--wrap);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.artist-name {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  color: var(--cream);
+}
+
+.nav-links { display: flex; gap: 24px; list-style: none; }
+
+.nav-links a {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--muted);
+  transition: color .2s ease;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible,
+.nav-links a.current { color: var(--turquoise); }
+
+/* ============================================================
+   PAGE HEAD
+   ============================================================ */
+.play-head { padding: 110px 0 28px; }
+
+.play-title {
+  font-size: clamp(36px, 5.5vw, 58px);
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+
+.play-intro {
+  max-width: 420px;
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.gallery-section { padding: 36px 0 60px; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.shot {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--deep);
+  border: 0;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+/* a few tiles break the grid */
+.shot.wide { grid-column: span 2; aspect-ratio: 2 / 1; }
+.shot.tall { grid-row: span 2; aspect-ratio: 1 / 2; }
+
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.shot:hover img,
+.shot:focus-visible img { transform: scale(1.04); }
+
+.shot-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--cream);
+  background: linear-gradient(transparent, rgba(5, 35, 60, .88));
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.shot:hover .shot-caption,
+.shot:focus-visible .shot-caption { opacity: 1; }
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(3, 20, 34, .96);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.lightbox.open { display: flex; }
+
+.lightbox img { max-width: 92vw; max-height: 82vh; object-fit: contain; }
+
+.lightbox-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 0; right: 0;
+  text-align: center;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--turquoise);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 18px; right: 22px;
+  background: none;
+  border: 0;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--cream);
+  cursor: pointer;
+}
+
+/* ============================================================
+   FOOTER — same as index.html
+   ============================================================ */
+footer {
+  width: var(--wrap);
+  margin: auto;
+  padding: 18px 0 26px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-text,
+.footer-links a {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+}
+
+.footer-links { display: flex; gap: 18px; }
+.footer-links a:hover { color: var(--turquoise); }
+
+#bg-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+#bg-canvas canvas { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .shot img { transition: none; }
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 760px) {
+  :root { --wrap: calc(100% - 32px); }
+  .site-nav { padding: 14px 0; }
+  .nav-links { gap: 16px; }
+  .play-head { padding: 92px 0 22px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .shot.tall { grid-row: span 1; aspect-ratio: 1 / 1; }
+  .shot-caption { opacity: 1; }
+  footer { display: block; }
+  .footer-links { margin-top: 12px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="bg-canvas"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html#top" class="artist-name">Vaishnavi Venkatesh</a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="playground.html" class="current">Playground</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HEAD ============ -->
+<header class="play-head">
+  <div class="page-width">
+    <h1 class="play-title">Playground</h1>
+    <p class="play-intro">
+      Experiments, studies and half-finished things — shaders, type tests, XR
+      captures, posters and small interactions made outside of any brief.
+    </p>
+    <a href="index.html" class="link">Back to work</a>
+  </div>
+</header>
+
+<div class="rule"></div>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery-section">
+  <div class="page-width">
+    <div class="gallery">
+
+      <button class="shot wide" type="button">
+        <img src="imagezz/play-01.png" alt="Experiment 01">
+        <span class="shot-caption">Type study</span>
+      </button>
+
+      <button class="shot" type="button">
+        <img src="imagezz/play-02.png" alt="Experiment 02">
+        <span class="shot-caption">Shader test</span>
+      </button>
+
+      <button class="shot tall" type="button">
+        <img src="imagezz/play-03.png" alt="Experiment 03">
+        <span class="shot-caption">Poster</span>
+      </button>
+
+      <button class="shot" type="button">
+        <img src="imagezz/play-04.png" alt="Experiment 04">
+        <span class="shot-caption">XR capture</span>
+      </button>
+
+      <button class="shot" type="button">
+        <img src="imagezz/play-05.png" alt="Experiment 05">
+        <span class="shot-caption">Sketch</span>
+      </button>
+
+      <button class="shot" type="button">
+        <img src="imagezz/play-06.png" alt="Experiment 06">
+        <span class="shot-caption">Colour study</span>
+      </button>
+
+      <button class="shot wide" type="button">
+        <img src="imagezz/play-07.png" alt="Experiment 07">
+        <span class="shot-caption">Blender render</span>
+      </button>
+
+      <button class="shot" type="button">
+        <img src="imagezz/play-08.png" alt="Experiment 08">
+        <span class="shot-caption">p5 sketch</span>
+      </button>
+
+      <button class="shot" type="button">
+        <img src="imagezz/play-09.png" alt="Experiment 09">
+        <span class="shot-caption">Photograph</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <span class="footer-text">Vaishnavi Venkatesh · 2026</span>
+  <div class="footer-links">
+    <a href="https://github.com/blueexev" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="index.html">Work</a>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+  <img id="lightbox-img" src="" alt="">
+  <span class="lightbox-caption" id="lightbox-caption"></span>
+</div>
+
+<!-- ============ P5 BACKGROUND ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<script src="sketch.js"></script>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const lightboxCaption = document.getElementById("lightbox-caption");
+const closeBtn = document.getElementById("lightbox-close");
+
+document.querySelectorAll(".shot").forEach(shot => {
+  shot.addEventListener("click", () => {
+    const img = shot.querySelector("img");
+    const caption = shot.querySelector(".shot-caption");
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = caption ? caption.textContent.trim() : "";
+    lightbox.classList.add("open");
+    closeBtn.focus();
+  });
+});
+
+function closeLightbox() {
+  lightbox.classList.remove("open");
+  lightboxImg.src = "";
+}
+
+closeBtn.addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+</script>
+
+</body>
+</html>
