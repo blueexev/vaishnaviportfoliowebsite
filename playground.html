@@ -13,6 +13,7 @@
     content="Visual experiments, XR studies and small interactions by Vaishnavi Venkatesh."
 >
 
+
 <!-- ============================================================
      GOOGLE FONT
 ============================================================ -->
@@ -21,7 +22,7 @@
 
 <link
     rel="preconnect"
-    href="https://fonts.gstatic.com"
+    href="https://fonts.googleapis.com"
     crossorigin
 >
 
@@ -40,9 +41,9 @@
 :root {
 
     --night: #05233C;
-    --deep: #0A3157;
     --cream: #F5F5DC;
     --muted: #9DB2C4;
+
     --turquoise: #28B6AC;
     --saffron: #D0674E;
 
@@ -172,10 +173,6 @@ h1 {
 
     padding-bottom: 4px;
 
-    transition:
-        color .25s ease,
-        border-color .25s ease;
-
 }
 
 
@@ -272,8 +269,6 @@ h1 {
 
     color: var(--muted);
 
-    transition: color .2s ease;
-
 }
 
 
@@ -330,7 +325,7 @@ h1 {
 
 .gallery-section {
 
-    padding: 36px 0 60px;
+    padding: 50px 0 70px;
 
 }
 
@@ -340,12 +335,161 @@ h1 {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3, minmax(0, 1fr));
 
-    gap: 14px;
+    gap: 42px 22px;
+
+    align-items: start;
 
 }
 
+
+/* ============================================================
+   EASY ARTWORK CONTROLS
+   ------------------------------------------------------------
+   Change ONLY the values below to move/resize each artwork.
+
+   width       = artwork width
+   height      = artwork height (use auto to keep proportions)
+   move-x      = left/right movement
+   move-y      = up/down movement
+
+   Examples:
+   --art-width: 85%;
+   --art-height: auto;
+   --move-x: 20px;
+   --move-y: -10px;
+
+   Each artwork has its own control class:
+   art-01, art-02, art-03, etc.
+============================================================ */
+
+.art-01 {
+    --art-width: 60%;
+    --art-height: 60;
+    --move-x: 0px;
+    --move-y: 0px;
+}
+
+.art-02 {
+    --art-width: 100%;
+    --art-height: auto;
+    --move-x: 0px;
+    --move-y: 0px;
+}
+
+.art-03 {
+    --art-width: 100%;
+    --art-height: auto;
+    --move-x: 0px;
+    --move-y: -230px;
+}
+
+.art-04 {
+    --art-width: 50%;
+    --art-height: auto;
+    --move-x: -10px;
+    --move-y: -230px;
+}
+
+.art-05 {
+    --art-width: 50%;
+    --art-height: auto;
+    --move-x: -170px;
+    --move-y: -230px;
+}
+
+.art-06 {
+    --art-width: 100%;
+    --art-height: auto;
+    --move-x: 0px;
+    --move-y: -530px;
+}
+
+.art-07 {
+    --art-width: 50%;
+    --art-height: 50;
+    --move-x: 0px;
+    --move-y: 0px;
+}
+
+.art-08 {
+    --art-width: 100%;
+    --art-height: auto;
+    --move-x: 660px;
+    --move-y: -1400px;
+}
+
+.art-09 {
+    --art-width: 100%;
+    --art-height: auto;
+    --move-x: 0px;
+    --move-y: 0px;
+}
+
+/* Individual images inside Experiment 04 */
+.art-04a,
+.art-04b,
+.art-04c {
+    --art-width: 100%;
+    --art-height: auto;
+    --move-x: 0px;
+    --move-y: 0px;
+}
+
+/* Apply the controls to each artwork */
+.art-01,
+.art-02,
+.art-03,
+.art-04,
+.art-05,
+.art-06,
+.art-07,
+.art-08,
+.art-09 {
+    width: var(--art-width);
+    transform: translate(var(--move-x), var(--move-y));
+}
+
+.art-01 img,
+.art-02 img,
+.art-03 img,
+.art-04 img,
+.art-05 img,
+.art-06 img,
+.art-07 img,
+.art-08 img,
+.art-09 img {
+    width: var(--art-width);
+    height: var(--art-height);
+}
+
+/* Individual artwork images in Experiment 04 */
+.art-04a,
+.art-04b,
+.art-04c {
+    display: block;
+    width: var(--art-width);
+    height: var(--art-height);
+    transform: translate(var(--move-x), var(--move-y));
+    object-fit: contain;
+}
+
+/* ============================================================
+   END EASY ARTWORK CONTROLS
+============================================================ */
+
+/* ============================================================
+   ARTWORK ITEM
+
+   IMPORTANT:
+   No fixed height.
+   No background.
+   No aspect ratio.
+
+   This allows every artwork to keep its
+   natural proportions.
+============================================================ */
 
 .shot {
 
@@ -355,65 +499,91 @@ h1 {
 
     width: 100%;
 
-    aspect-ratio: 1 / 1;
+    height: auto;
 
-    background: var(--deep);
-
-    border: 0;
-
-    overflow: hidden;
-
-    cursor: zoom-in;
+    min-width: 0;
 
     padding: 0;
 
-}
+    border: 0;
 
+    background: transparent;
 
-.shot.wide {
+    cursor: zoom-in;
 
-    grid-column: span 2;
-
-    aspect-ratio: 2 / 1;
-
-}
-
-
-.shot.tall {
-
-    grid-row: span 2;
-
-    aspect-ratio: 1 / 2;
-
-}
-
-
-.shot img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-    display: block;
-
-    transition:
-        transform .7s cubic-bezier(.2,.7,.2,1);
-
-}
-
-
-.shot:hover img,
-.shot:focus-visible img {
-
-    transform: scale(1.04);
+    overflow: visible;
 
 }
 
 
 /* ============================================================
-   GALLERY CAPTION
+   WIDE ARTWORK
+============================================================ */
+
+.shot.wide {
+
+    grid-column: span 2;
+
+}
+
+
+/* ============================================================
+   TALL ARTWORK
+
+   No longer forces the artwork into a 1:2 box.
+   Its natural height is respected.
+============================================================ */
+
+.shot.tall {
+
+    grid-row: auto;
+
+}
+
+
+/* ============================================================
+   ARTWORK IMAGE + VIDEO
+
+   width: 100%
+   height: auto
+   object-fit: contain
+
+   This preserves the original aspect ratio.
+============================================================ */
+
+.shot img,
+.shot video {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    max-width: 100%;
+
+    object-fit: contain;
+
+    object-position: center;
+
+}
+
+/* Keep individual artwork sizes from the controls above */
+.art-01 img,
+.art-02 img,
+.art-03 img,
+.art-04 img,
+.art-05 img,
+.art-06 img,
+.art-07 img,
+.art-08 img,
+.art-09 img {
+    width: var(--art-width);
+    height: var(--art-height);
+}
+
+/* ============================================================
+   CAPTION
 ============================================================ */
 
 .shot-caption {
@@ -424,7 +594,8 @@ h1 {
     right: 0;
     bottom: 0;
 
-    padding: 10px 12px;
+    padding:
+        32px 12px 10px;
 
     text-align: left;
 
@@ -439,15 +610,15 @@ h1 {
     background:
         linear-gradient(
             transparent,
-            rgba(5, 35, 60, .88)
+            rgba(5, 35, 60, .9)
         );
 
     opacity: 0;
 
-    transition: opacity .3s ease;
-
 }
 
+
+/* Caption appears without animation */
 
 .shot:hover .shot-caption,
 .shot:focus-visible .shot-caption {
@@ -490,7 +661,21 @@ h1 {
 }
 
 
-.lightbox img {
+/* ============================================================
+   LIGHTBOX ARTWORK
+
+   Natural size / natural aspect ratio.
+   Never cropped.
+============================================================ */
+
+.lightbox img,
+.lightbox video {
+
+    display: block;
+
+    width: auto;
+
+    height: auto;
 
     max-width: 92vw;
 
@@ -500,6 +685,10 @@ h1 {
 
 }
 
+
+/* ============================================================
+   LIGHTBOX CAPTION
+============================================================ */
 
 .lightbox-caption {
 
@@ -523,6 +712,10 @@ h1 {
 }
 
 
+/* ============================================================
+   LIGHTBOX CLOSE
+============================================================ */
+
 .lightbox-close {
 
     position: absolute;
@@ -541,6 +734,8 @@ h1 {
     color: var(--cream);
 
     cursor: pointer;
+
+    z-index: 5;
 
 }
 
@@ -624,27 +819,6 @@ footer {
 
 
 /* ============================================================
-   REDUCED MOTION
-============================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-
-    html {
-
-        scroll-behavior: auto;
-
-    }
-
-    .shot img {
-
-        transition: none;
-
-    }
-
-}
-
-
-/* ============================================================
    TABLET
 ============================================================ */
 
@@ -657,9 +831,17 @@ footer {
 
     }
 
+
     .nav-links {
 
         gap: 18px;
+
+    }
+
+
+    .gallery {
+
+        gap: 32px 16px;
 
     }
 
@@ -780,7 +962,7 @@ footer {
     .gallery-section {
 
         padding:
-            28px 0 44px;
+            32px 0 48px;
 
     }
 
@@ -788,16 +970,9 @@ footer {
     .gallery {
 
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2, minmax(0, 1fr));
 
-        gap: 9px;
-
-    }
-
-
-    .shot {
-
-        aspect-ratio: 1 / 1;
+        gap: 24px 10px;
 
     }
 
@@ -806,22 +981,18 @@ footer {
 
         grid-column: span 2;
 
-        aspect-ratio: 2 / 1;
-
     }
 
 
     .shot.tall {
 
-        grid-row: span 1;
-
-        aspect-ratio: 1 / 1;
+        grid-row: auto;
 
     }
 
 
     /* -------------------------
-       MOBILE CAPTIONS
+       CAPTIONS
     ------------------------- */
 
     .shot-caption {
@@ -829,7 +1000,7 @@ footer {
         opacity: 1;
 
         padding:
-            22px 8px 8px;
+            28px 8px 8px;
 
         font-size: 7px;
 
@@ -892,7 +1063,8 @@ footer {
     }
 
 
-    .lightbox img {
+    .lightbox img,
+    .lightbox video {
 
         max-width: 94vw;
 
@@ -968,7 +1140,16 @@ footer {
 
     .gallery {
 
-        gap: 7px;
+        grid-template-columns: 1fr;
+
+        gap: 28px;
+
+    }
+
+
+    .shot.wide {
+
+        grid-column: span 1;
 
     }
 
@@ -1013,11 +1194,13 @@ footer {
                 </a>
             </li>
 
+
             <li>
                 <a href="index.html#about">
                     About
                 </a>
             </li>
+
 
             <li>
                 <a
@@ -1027,6 +1210,7 @@ footer {
                     Playground
                 </a>
             </li>
+
 
             <li>
                 <a href="index.html#contact">
@@ -1056,8 +1240,7 @@ footer {
 
         <p class="play-intro">
 
-            Experiments, studies and half-finished things —
-            shaders, type tests, XR captures, posters and
+            Experiments and half-finished things, posters and
             small interactions made outside of any brief.
 
         </p>
@@ -1089,171 +1272,214 @@ footer {
         <div class="gallery">
 
 
-            <!-- IMAGE 01 -->
+            <!-- ==================================================
+                 EXPERIMENT 01 — VIDEO
+            ================================================== -->
 
             <button
-                class="shot wide"
+                class="shot wide art-01"
                 type="button"
+                data-type="video"
+                data-src="videos/Composition%201.mp4"
             >
 
-                <img
-                    src="imagezz/play-01.png"
-                    alt="Experiment 01"
-                    loading="eager"
-                >
-
-                <span class="shot-caption">
-                    Type study
-                </span>
+                <video
+                    src="videos/mainmain_1.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label="Experiment 01"
+                ></video>
 
             </button>
 
 
-            <!-- IMAGE 02 -->
+            <!-- ==================================================
+                 EXPERIMENT 02 — VIDEO
+            ================================================== -->
 
             <button
-                class="shot"
+                class="shot art-02"
                 type="button"
+                data-type="video"
+                data-src="videos/mainmain_1.mp4"
             >
 
-                <img
-                    src="imagezz/play-02.png"
-                    alt="Experiment 02"
-                    loading="lazy"
-                >
-
-                <span class="shot-caption">
-                    Shader test
-                </span>
-
+                <video
+                    src="videos\Composition 1.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label="Experiment 02"
+                ></video>
             </button>
 
 
-            <!-- IMAGE 03 -->
+            <!-- ==================================================
+                 EXPERIMENT 03 — IMAGE
+            ================================================== -->
 
             <button
-                class="shot tall"
+                class="shot art-03"
                 type="button"
+                data-type="image"
+                data-src="imagezz/experiment4.jpg"
             >
 
                 <img
-                    src="imagezz/play-03.png"
+                    src="imagezz/experiment4.jpg"
                     alt="Experiment 03"
                     loading="lazy"
                 >
 
-                <span class="shot-caption">
-                    Poster
-                </span>
-
             </button>
 
 
-            <!-- IMAGE 04 -->
+            <!-- ==================================================
+                 EXPERIMENT 04 — VIDEO
+            ================================================== -->
 
             <button
-                class="shot"
+                class="shot art-04"
                 type="button"
+                data-type="video"
+                data-src="videos/flipbook.mp4"
             >
-
                 <img
-                    src="imagezz/play-04.png"
-                    alt="Experiment 04"
-                    loading="lazy"
-                >
-
-                <span class="shot-caption">
-                    XR capture
-                </span>
-
-            </button>
-
-
-            <!-- IMAGE 05 -->
-
-            <button
-                class="shot"
-                type="button"
-            >
-
-                <img
-                    src="imagezz/play-05.png"
+                    src="imagezz\winter bear v.png"
                     alt="Experiment 05"
                     loading="lazy"
                 >
-
-                <span class="shot-caption">
-                    Sketch
-                </span>
-
+                <br>
+            <img
+                    src="imagezz\rm seoul.png"
+                    alt="Experiment 05"
+                    loading="lazy"
+                >
+                <br>
+<img
+                    src="imagezz\jk.png"
+                    alt="Experiment 05"
+                    loading="lazy"
+                >
             </button>
 
-
-            <!-- IMAGE 06 -->
+            <!-- ==================================================
+                 EXPERIMENT 05 — IMAGE
+            ================================================== -->
 
             <button
-                class="shot"
+                class="shot art-05"
                 type="button"
+                data-type="image"
+                data-src="imagezz/play-05.png"
             >
 
                 <img
-                    src="imagezz/play-06.png"
-                    alt="Experiment 06"
+                    src="imagezz\jin.png"
+                    alt="Experiment 05"
                     loading="lazy"
                 >
-
-                <span class="shot-caption">
-                    Colour study
-                </span>
-
+               <br>
+<img
+                    src="imagezz\jimin.png"
+                    alt="Experiment 05"
+                    loading="lazy"
+                >
+                <br>
+                <img
+                    src="imagezz\JHOPE.png"
+                    alt="Experiment 05"
+                    loading="lazy"
+                >
             </button>
 
 
-            <!-- IMAGE 07 -->
+            <!-- ==================================================
+                 EXPERIMENT 06 — IMAGE
+            ================================================== -->
 
             <button
-                class="shot wide"
+                class="shot art-06"
                 type="button"
+                data-type="image"
+                data-src="imagezz/play-06.png"
             >
 
-                <img
-                    src="imagezz/play-07.png"
-                    alt="Experiment 07"
-                    loading="lazy"
-                >
-
-                <span class="shot-caption">
-                    Blender render
-                </span>
+                <video
+                    src="videos\kaleidoscopic design.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label="Experiment 02"
+                ></video>
 
             </button>
 
 
-            <!-- IMAGE 08 -->
+            <!-- ==================================================
+                 EXPERIMENT 07 — IMAGE
+            ================================================== -->
 
             <button
-                class="shot"
+                class="shot wide art-07"
                 type="button"
+                data-type="image"
+                data-src="imagezz/play-07.png"
             >
 
-                <img
-                    src="imagezz/play-08.png"
-                    alt="Experiment 08"
-                    loading="lazy"
-                >
-
-                <span class="shot-caption">
-                    p5 sketch
-                </span>
+                <video
+                    src="videos\pacman.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label="Experiment 02"
+                ></video>
 
             </button>
 
 
-            <!-- IMAGE 09 -->
+            <!-- ==================================================
+                 EXPERIMENT 08 — IMAGE
+            ================================================== -->
 
             <button
-                class="shot"
+                class="shot art-08"
                 type="button"
+                data-type="image"
+                data-src="imagezz/play-08.png"
+            >
+
+                <video
+                    src="videos\random face.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label="Experiment 02"
+                ></video>
+
+            </button>
+
+
+            <!-- ==================================================
+                 EXPERIMENT 09 — IMAGE
+            ================================================== -->
+
+            <button
+                class="shot art-09"
+                type="button"
+                data-type="image"
+                data-src="imagezz/play-09.png"
             >
 
                 <img
@@ -1261,10 +1487,6 @@ footer {
                     alt="Experiment 09"
                     loading="lazy"
                 >
-
-                <span class="shot-caption">
-                    Photograph
-                </span>
 
             </button>
 
@@ -1325,7 +1547,7 @@ footer {
     id="lightbox"
     role="dialog"
     aria-modal="true"
-    aria-label="Enlarged image"
+    aria-label="Enlarged experiment"
 >
 
     <button
@@ -1337,11 +1559,27 @@ footer {
     </button>
 
 
+    <!-- IMAGE -->
+
     <img
         id="lightbox-img"
         src=""
         alt=""
+        style="display: none;"
     >
+
+
+    <!-- VIDEO -->
+
+    <video
+        id="lightbox-video"
+        controls
+        autoplay
+        muted
+        loop
+        playsinline
+        style="display: none;"
+    ></video>
 
 
     <span
@@ -1373,19 +1611,26 @@ footer {
 const lightbox =
     document.getElementById("lightbox");
 
+
 const lightboxImg =
     document.getElementById("lightbox-img");
 
+
+const lightboxVideo =
+    document.getElementById("lightbox-video");
+
+
 const lightboxCaption =
     document.getElementById("lightbox-caption");
+
 
 const closeBtn =
     document.getElementById("lightbox-close");
 
 
-/* ------------------------------------------------------------
+/* ============================================================
    OPEN LIGHTBOX
------------------------------------------------------------- */
+============================================================ */
 
 document
     .querySelectorAll(".shot")
@@ -1395,8 +1640,11 @@ document
             "click",
             () => {
 
-                const img =
-                    shot.querySelector("img");
+                const type =
+                    shot.dataset.type;
+
+                const source =
+                    shot.dataset.src;
 
                 const caption =
                     shot.querySelector(
@@ -1404,18 +1652,74 @@ document
                     );
 
 
-                lightboxImg.src =
-                    img.src;
+                /* -------------------------
+                   RESET
+                ------------------------- */
 
-                lightboxImg.alt =
-                    img.alt;
+                lightboxImg.style.display =
+                    "none";
 
+                lightboxVideo.style.display =
+                    "none";
+
+                lightboxVideo.pause();
+
+                lightboxVideo.removeAttribute(
+                    "src"
+                );
+
+
+                /* -------------------------
+                   IMAGE
+                ------------------------- */
+
+                if (type === "image") {
+
+                    lightboxImg.src =
+                        source;
+
+                    lightboxImg.alt =
+                        "Enlarged experiment";
+
+                    lightboxImg.style.display =
+                        "block";
+
+                }
+
+
+                /* -------------------------
+                   VIDEO
+                ------------------------- */
+
+                if (type === "video") {
+
+                    lightboxVideo.src =
+                        source;
+
+                    lightboxVideo.style.display =
+                        "block";
+
+                    lightboxVideo.load();
+
+                    lightboxVideo.play()
+                        .catch(() => {});
+
+                }
+
+
+                /* -------------------------
+                   CAPTION
+                ------------------------- */
 
                 lightboxCaption.textContent =
                     caption
                         ? caption.textContent.trim()
                         : "";
 
+
+                /* -------------------------
+                   OPEN
+                ------------------------- */
 
                 lightbox.classList.add("open");
 
@@ -1428,20 +1732,32 @@ document
     });
 
 
-/* ------------------------------------------------------------
+/* ============================================================
    CLOSE LIGHTBOX
------------------------------------------------------------- */
+============================================================ */
 
 function closeLightbox() {
 
     lightbox.classList.remove("open");
 
+
     lightboxImg.src = "";
+
+
+    lightboxVideo.pause();
+
+    lightboxVideo.removeAttribute(
+        "src"
+    );
+
+    lightboxVideo.load();
 
 }
 
 
-/* CLOSE BUTTON */
+/* ============================================================
+   CLOSE BUTTON
+============================================================ */
 
 closeBtn.addEventListener(
     "click",
@@ -1449,7 +1765,9 @@ closeBtn.addEventListener(
 );
 
 
-/* CLICK OUTSIDE IMAGE */
+/* ============================================================
+   CLICK OUTSIDE
+============================================================ */
 
 lightbox.addEventListener(
     "click",
@@ -1467,7 +1785,9 @@ lightbox.addEventListener(
 );
 
 
-/* ESCAPE KEY */
+/* ============================================================
+   ESCAPE KEY
+============================================================ */
 
 document.addEventListener(
     "keydown",
